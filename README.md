@@ -1,2 +1,2 @@
-# 254-Browser
- A simple browser on Ubuntu using WebKit. 
+# 254-Calculator
+ A simple Calculator on Linux using QT Creator. 
