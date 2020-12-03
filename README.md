@@ -1,5 +1,5 @@
 # 254-Calculator
-By Reeder Loveland and Nathan Tran<br>
+By Reeder Loveland, Nathan Tran and Richard Vu<br>
 A calculator for the equations of lines and circles on Linux using QT Creator. 
 
 This Calculator can give you:<br>
