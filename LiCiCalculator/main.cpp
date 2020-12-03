@@ -1,13 +1,14 @@
 //Authors: Nathan Tran, Reeder Loveland, Richard Vu
+//This is the main driver file that begins the application and eventually terminates it
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
+    //Initializes the window and creates an application object
     QGuiApplication app(argc, argv);
 
+    //Creates an engine object and makes the engine load main.qml
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -17,5 +18,6 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
+    //Run the application until the user exits out
     return app.exec();
 }

@@ -1,16 +1,20 @@
 //Authors: Nathan Tran, Reeder Loveland, Richard Vu
+//This file forms the page for line equations and line data output
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 
 Page {
+    //Initialize the page dimensions
     width: 1000
     height: 480
 
+    //Initialize variables to hold user-inputted data
     property double x1: 0.0
     property double x2: 0.0
     property double y1: 0.0
     property double y2: 0.0
 
+    //Initialize variables to hold calculation results
     property double firstDistPair: 0.0
     property double secondDistPair: 0.0
     property double distResult: 0.0
@@ -25,6 +29,7 @@ Page {
 
     property double yIntercept: 0.0
 
+    //Header for the application window
     header: Label {
         text: qsTr("Equation of a Line")
         font.pixelSize: Qt.application.font.pixelSize * 2
@@ -32,6 +37,7 @@ Page {
         padding: 10
     }
 
+    //TextField objects for users to input point coordinates
     TextField {
         id: input_x1
         x: 400
@@ -60,38 +66,7 @@ Page {
         placeholderText: qsTr("input y2")
     }
 
-    Button {
-        id: calculateLineButton
-        x: 450
-        y: 254
-        text: qsTr("Calculate")
-
-        onPressed:{
-            x1 = input_x1.displayText
-            y1 = input_y1.displayText
-            x2 = input_x2.displayText
-            y2 = input_y2.displayText
-
-            firstDistPair = x1 - x2
-            firstDistPair *= firstDistPair
-            secondDistPair = y1 - y2
-            secondDistPair *= secondDistPair
-            distResult = Math.sqrt(firstDistPair + secondDistPair)
-
-            firstMidPair = (x1 + x2) / 2
-            secondMidPair = (y1 + y2) / 2
-
-            firstSlopePair = y2 - y1
-            secondSlopePair = x2 - x1
-            slopeResult = firstSlopePair / secondSlopePair
-
-            yIntercept = y1 - (slopeResult * x1)
-
-            lineEquationOutput.text = "y = " + slopeResult + "x + " + yIntercept
-            lineDataOutput.text = "d = " + distResult + ", midpoint = (" + firstMidPair + ", " + secondMidPair + ")" + ", b = " + yIntercept + ", m = " + slopeResult
-        }
-    }
-
+    //Corresponding text labels for each TextField
     Text {
         id: label_x1
         x: 368
@@ -124,6 +99,7 @@ Page {
         font.pixelSize: 16
     }
 
+    //Placeholder text to be later modified into output
     Text {
         id: lineDataOutput
         x: 59
@@ -146,5 +122,45 @@ Page {
         font.pixelSize: 20
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignTop
+    }
+
+    //Button to begin calculations
+    Button {
+        id: calculateLineButton
+        x: 450
+        y: 254
+        text: qsTr("Calculate")
+
+        onPressed:{
+            //When this button is pressed, set the previously initialized variables to
+            //the user-inputted data by accessing the properties of the TextFields, then perform calculations on them
+            x1 = input_x1.displayText
+            y1 = input_y1.displayText
+            x2 = input_x2.displayText
+            y2 = input_y2.displayText
+
+            //Calculate the distance between the two points
+            firstDistPair = x1 - x2
+            firstDistPair *= firstDistPair
+            secondDistPair = y1 - y2
+            secondDistPair *= secondDistPair
+            distResult = Math.sqrt(firstDistPair + secondDistPair)
+
+            //Calculate the midpoint of the two points
+            firstMidPair = (x1 + x2) / 2
+            secondMidPair = (y1 + y2) / 2
+
+            //Calculate the slope of the two points
+            firstSlopePair = y2 - y1
+            secondSlopePair = x2 - x1
+            slopeResult = firstSlopePair / secondSlopePair
+
+            //Calculate the y-intercept
+            yIntercept = y1 - (slopeResult * x1)
+
+            //Output the equation of the line and its data
+            lineEquationOutput.text = "y = " + slopeResult + "x + " + yIntercept
+            lineDataOutput.text = "d = " + distResult + ", midpoint = (" + firstMidPair + ", " + secondMidPair + ")" + ", b = " + yIntercept + ", m = " + slopeResult
+        }
     }
 }
