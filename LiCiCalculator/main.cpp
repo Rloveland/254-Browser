@@ -1,4 +1,5 @@
 //Authors: Nathan Tran, Reeder Loveland, Richard Vu
+//CPSC 254-01 25615 Group Project
 //This is the main driver file that begins the application and eventually terminates it
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>

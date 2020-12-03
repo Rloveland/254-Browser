@@ -1,4 +1,5 @@
 //Authors: Nathan Tran, Reeder Loveland, Richard Vu
+//CPSC 254-01 25615 Group Project
 //This is a QML driver file that handles the window and initalizes the pages within it
 import QtQuick 2.12
 import QtQuick.Controls 2.5

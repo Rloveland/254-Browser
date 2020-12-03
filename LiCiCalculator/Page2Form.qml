@@ -1,4 +1,5 @@
 //Authors: Nathan Tran, Reeder Loveland, Richard Vu
+//CPSC 254-01 25615 Group Project
 //This file forms the page for circle equations and circle data output
 import QtQuick 2.12
 import QtQuick.Controls 2.5
