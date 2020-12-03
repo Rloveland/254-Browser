@@ -1,6 +1,6 @@
 # 254-Calculator
-By Reeder Loveland and Nathan Tran
-A Common Formula Calculator on Linux using QT Creator. 
+By Reeder Loveland and Nathan Tran<br>
+A calculator for the equations of lines and circles on Linux using QT Creator. 
 
 This Calculator can give you:<br>
  -The equation of a line from two points<br>
