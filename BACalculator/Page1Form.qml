@@ -141,12 +141,13 @@ Page {
 
     Text {
         id: disclaimer
-        x: 14
-        y: 172
+        x: 58
+        y: 167
         text: qsTr("DISCLAIMER: This is just an estimation and not guaranteed to be completely accurate.")
-        font.pixelSize: 15
+        font.pixelSize: 12
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
+        minimumPixelSize: 9
     }
 
     Timer {
@@ -196,8 +197,8 @@ Page {
 
     Text {
         id: warningLabel
-        x: 288
-        y: 17
+        x: 253
+        y: 13
         width: 25
         height: 19
         text: qsTr("")
