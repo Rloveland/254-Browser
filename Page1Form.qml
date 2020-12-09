@@ -69,17 +69,6 @@ Page {
         }
     }
 
-    Button {
-        id: resetButton
-        x: 227
-        y: 218
-        width: 148
-        height: 102
-        text: qsTr("Reset")
-        onPressed:
-            bloodAlcoholContent = 0
-    }
-
     header: Label {
         height: 50
         color: "#ffffff"
@@ -183,6 +172,17 @@ Page {
             y: 56
 
             text: weightValue + " lb"
+        }
+
+        Button {
+            id: resetButton
+            x: 192
+            y: 19
+            width: 148
+            height: 102
+            text: qsTr("Reset")
+            onPressed:
+                bloodAlcoholContent = 0
         }
     }
 
