@@ -1,12 +1,45 @@
+//Authors: Nathan Tran, Reeder Loveland, Richard Vu
+//CPSC254-01 25615
+
+//This page handles drink sizes and alcohol values for users to input
+
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import Qt.labs.settings 1.0
 
 Page {
-    id: homePage
+    //Initialize window dimensions
+    id: drinksPage
     width: 600
     height: 450
 
+    Button {
+        id: enterButton
+        x: 262
+        y: 299
+        width: 76
+        height: 30
+        text: qsTr("Enter")
+
+        onClicked:{
+            //Drink sizes for users to select
+            if(fourOunceButton.checked == true)
+                portionSize = 4.0
+            if(eightOunceButton.checked == true)
+                portionSize = 8.0
+            if(twelveOunceButton.checked == true)
+                portionSize = 12.0
+            if(sixteenOunceButton.checked == true)
+                portionSize = 16.0
+            if (customSizeButton.checked == true)
+                portionSize = customSizeField.displayText
+
+            alcoholValue = (alcoholPercentField.displayText * portionSize) / 100 //Calculate the ounces of alcohol in the drink
+            bloodAlcoholContent += (alcoholValue * genderConstant / weightValue) //Calculate the amount of alcohol the user intakes based on their gender and weight
+        }
+    }
+
+    //GUI Objects
     header: Label {
         height: 50
         color: "#ffffff"
@@ -107,30 +140,5 @@ Page {
         y: 244
         horizontalAlignment: Text.AlignHCenter
         placeholderText: qsTr("Enter Alcohol %")
-    }
-
-    Button {
-        id: enterButton
-        x: 262
-        y: 299
-        width: 76
-        height: 30
-        text: qsTr("Enter")
-
-        onClicked:{
-            if(fourOunceButton.checked == true)
-                portionSize = 4.0
-            if(eightOunceButton.checked == true)
-                portionSize = 8.0
-            if(twelveOunceButton.checked == true)
-                portionSize = 12.0
-            if(sixteenOunceButton.checked == true)
-                portionSize = 16.0
-            if (customSizeButton.checked == true)
-                portionSize = customSizeField.displayText
-
-            alcoholValue = (alcoholPercentField.displayText * portionSize) / 100
-            bloodAlcoholContent += (alcoholValue * genderConstant / weightValue)
-        }
     }
 }

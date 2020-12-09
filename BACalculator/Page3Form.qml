@@ -1,12 +1,46 @@
+//Authors: Nathan Tran, Reeder Loveland, Richard Vu
+//CPSC254-01 25615
+
+//This file handles the user settings page
+
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import Qt.labs.settings 1.0
 
 Page {
+    //Initialize page dimensions
     id: settingsPage
     width: 600
     height: 450
 
+    Button {
+        id: save_button
+        x: 461
+        y: 316
+        width: 100
+        height: 34
+        text: "Save"
+
+        onClicked:{
+            if(maleRadioButton.checked === true) //if user selected male
+            {
+                genderConstant = 3.75
+                genderString = "Male"
+            }
+            else //if user selected female
+            {
+                genderConstant = 4.7
+                genderString = "Female"
+            }
+
+            ageValue = 2020 - ageComboBox.displayText //calculate user age and set its value on the first page
+            weightValue = weightTextField.displayText //set the weight string on the first page
+            nameString = nameTextField.text //set the name string on the first page
+        }
+
+    }
+
+    //GUI objects
     header: Label {
         height: 50
         color: "#ffffff"
@@ -23,33 +57,6 @@ Page {
         border.width: 1
         implicitWidth: 200
         implicitHeight: 24
-    }
-
-    Button {
-        id: save_button
-        x: 461
-        y: 316
-        width: 100
-        height: 34
-        text: "Save"
-
-        onClicked:{
-            if(maleRadioButton.checked === true)
-            {
-                genderConstant = 3.75
-                genderString = "Male"
-            }
-            else
-            {
-                genderConstant = 4.7
-                genderString = "Female"
-            }
-
-            ageValue = 2020 - ageComboBox.displayText
-            weightValue = weightTextField.displayText
-            nameString = nameTextField.text
-        }
-
     }
 
     Rectangle {

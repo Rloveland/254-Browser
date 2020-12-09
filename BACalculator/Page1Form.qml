@@ -1,3 +1,7 @@
+//Authors: Nathan Tran, Reeder Loveland, Richard Vu
+//CPSC254-01 25615
+
+//This file handles the first page to display user info and BAC values/warnings
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import Qt.labs.settings 1.0
@@ -8,6 +12,73 @@ Page {
     width: 600
     height: 450
     font.pointSize: 8
+
+    Timer {
+        interval: 0; running: true; repeat: false;
+        onTriggered:{
+            //Calculate the seconds passed in the time this app was closed, and reduce BAC based
+            //on that time
+
+            secondsPassed = (Math.round(((startTime - newStartTime) / 1000)) - sessionSeconds)
+            bloodAlcoholContent -= (eliminationRate * secondsPassed)
+            newStartTime = startTime
+            sessionSeconds = 0
+            if (bloodAlcoholContent < 0)
+                bloodAlcoholContent = 0
+        }
+    }
+
+    Timer {
+        interval: 1000; running: true; repeat: true;
+        onTriggered:{
+            sessionSeconds++
+
+            //Reduce the BAC by a constant rate for every second that passes
+            //and make sure the BAC value doesn't become negative
+            if (bloodAlcoholContent > 0)
+                bloodAlcoholContent -= eliminationRate
+            else if (bloodAlcoholContent < 0)
+                bloodAlcoholContent = 0
+
+
+            //Display a warning about the user's impairment based on their current BAC
+            if (bloodAlcoholContent <= 0){
+                warningLabel.text = "None"
+                warningLabel.color = "green"
+            }
+            else if (bloodAlcoholContent > 0 && bloodAlcoholContent < 0.05){
+                warningLabel.text = "Mild"
+                warningLabel.color = "yellow"
+            }
+            else if (bloodAlcoholContent > 0.05 && bloodAlcoholContent < 0.08){
+                warningLabel.text = "Near Intoxicated"
+                warningLabel.color = "orange"
+            }
+            else if (bloodAlcoholContent > 0.08 && bloodAlcoholContent < 0.12){
+                warningLabel.text = "Intoxicated"
+                warningLabel.color = "red"
+            }
+            else if (bloodAlcoholContent > 0.12 && bloodAlcoholContent < 0.15){
+                warningLabel.text = "Severely Intoxicated"
+                warningLabel.color = "dark red"
+            }
+            else {
+                warningLabel.text = "STOP DRINKING"
+                warningLabel.color = "dark red"
+            }
+        }
+    }
+
+    Button {
+        id: resetButton
+        x: 227
+        y: 218
+        width: 148
+        height: 102
+        text: qsTr("Reset")
+        onPressed:
+            bloodAlcoholContent = 0
+    }
 
     header: Label {
         height: 50
@@ -115,30 +186,6 @@ Page {
         }
     }
 
-
-    Button {
-        id: resetButton
-        x: 227
-        y: 218
-        width: 148
-        height: 102
-        text: qsTr("Reset")
-        onPressed:
-            bloodAlcoholContent = 0
-    }
-
-    Timer {
-        interval: 0; running: true; repeat: false;
-        onTriggered:{
-            secondsPassed = (Math.round(((startTime - newStartTime) / 1000)) - sessionSeconds)
-            bloodAlcoholContent -= (eliminationRate * secondsPassed)
-            newStartTime = startTime
-            sessionSeconds = 0
-            if (bloodAlcoholContent < 0)
-                bloodAlcoholContent = 0
-        }
-    }
-
     Text {
         id: disclaimer
         x: 58
@@ -148,42 +195,6 @@ Page {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         minimumPixelSize: 9
-    }
-
-    Timer {
-        interval: 1000; running: true; repeat: true;
-        onTriggered:{
-            sessionSeconds++
-            if (bloodAlcoholContent > 0)
-                bloodAlcoholContent -= eliminationRate
-            else if (bloodAlcoholContent < 0)
-                bloodAlcoholContent = 0
-
-            if (bloodAlcoholContent <= 0){
-                warningLabel.text = "None"
-                warningLabel.color = "green"
-            }
-            else if (bloodAlcoholContent > 0 && bloodAlcoholContent < 0.05){
-                warningLabel.text = "Mild"
-                warningLabel.color = "yellow"
-            }
-            else if (bloodAlcoholContent > 0.05 && bloodAlcoholContent < 0.08){
-                warningLabel.text = "Near Intoxicated"
-                warningLabel.color = "orange"
-            }
-            else if (bloodAlcoholContent > 0.08 && bloodAlcoholContent < 0.12){
-                warningLabel.text = "Intoxicated"
-                warningLabel.color = "red"
-            }
-            else if (bloodAlcoholContent > 0.12 && bloodAlcoholContent < 0.15){
-                warningLabel.text = "Severely Intoxicated"
-                warningLabel.color = "dark red"
-            }
-            else {
-                warningLabel.text = "STOP DRINKING"
-                warningLabel.color = "dark red"
-            }
-        }
     }
 
     Label {
@@ -219,6 +230,7 @@ Page {
         font.pointSize: 20
         placeholderText: qsTr("Text Area")
     }
+
     ProgressBar {
         id: bloodAlcoholProgressBar
         x: 14
