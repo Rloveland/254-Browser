@@ -19,9 +19,9 @@ Page {
             //Calculate the seconds passed in the time this app was closed, and reduce BAC based
             //on that time
 
-            secondsPassed = (Math.round(((startTime - newStartTime) / 1000)) - sessionSeconds)
+            secondsPassed = (Math.round(((newStartTime - oldStartTime) / 1000)) - sessionSeconds)
             bloodAlcoholContent -= (eliminationRate * secondsPassed)
-            newStartTime = startTime
+            oldStartTime = newStartTime
             sessionSeconds = 0
             if (bloodAlcoholContent < 0)
                 bloodAlcoholContent = 0
@@ -32,7 +32,7 @@ Page {
         interval: 1000; running: true; repeat: true;
         onTriggered:{
             sessionSeconds++
-
+            console.log(bloodAlcoholContent)
             //Reduce the BAC by a constant rate for every second that passes
             //and make sure the BAC value doesn't become negative
             if (bloodAlcoholContent > 0)
@@ -67,17 +67,6 @@ Page {
                 warningLabel.color = "dark red"
             }
         }
-    }
-
-    Button {
-        id: resetButton
-        x: 227
-        y: 218
-        width: 148
-        height: 102
-        text: qsTr("Reset")
-        onPressed:
-            bloodAlcoholContent = 0
     }
 
     header: Label {
@@ -183,6 +172,17 @@ Page {
             y: 56
 
             text: weightValue + " lb"
+        }
+
+        Button {
+            id: resetButton
+            x: 192
+            y: 19
+            width: 148
+            height: 102
+            text: qsTr("Reset")
+            onPressed:
+                bloodAlcoholContent = 0
         }
     }
 

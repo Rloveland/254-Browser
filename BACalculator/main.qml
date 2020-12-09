@@ -22,8 +22,8 @@ ApplicationWindow {
     property double ageValue: 0.0
 
     //Initialize variables to calculate seconds passed between sessions
-    property double startTime: new Date().getTime()
-    property double newStartTime: 0.0
+    property double newStartTime: new Date().getTime()
+    property double oldStartTime: 0.0
     property double secondsPassed: 0.0
     property double sessionSeconds: 0.0
 
@@ -46,7 +46,7 @@ ApplicationWindow {
         property alias genderConstant: applicationWindow.genderConstant
         property alias nameString: applicationWindow.nameString
         property alias sessionSeconds: applicationWindow.sessionSeconds
-        property alias newStartTime: applicationWindow.newStartTime
+        property alias newStartTime: applicationWindow.oldStartTime
     }
 
     //Initializes pages with swipe functionality
